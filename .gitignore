@@ -1,0 +1,17 @@
+## Folder
+target/
+
+#Eclipse files & Folder
+.settings/
+*classpath
+*factorypath
+*project
+
+## Intell´J Files
+*iml
+
+## Maven files
+.mvn/
+
+## Visual Code Files
+.vscode/
