@@ -39,4 +39,30 @@ jobs:
         env:
           GITHUB_USER: ${{secrets.bnauk_user}}
           GITHUB_TOKEN: ${{secrets.bnauk_token}}
-        run: mvn -X -s settings.xml -B -Dchangelist=-SNAPSHOT deploy -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/3nauk/maven-site
+        run: mvn -X -s settings.xml -B -Dchangelist= deploy -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/3nauk/maven-site
+
+  remove-old-version:
+    runs-on: ubuntu-latest
+    needs: build-with-jdk-11
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Extract Maven project version
+        uses: 3nauk/bbcron-action-maven-getinfo@2077456a25ba01f73c9bfdf6638251bd5d7c9aed
+        id: maven-info
+
+      - run: echo "${{ steps.maven-info.outputs.version }}"
+
+      - run: echo "${{ steps.maven-info.outputs.artifactId }}"
+
+      - run: echo "${{ steps.maven-info.outputs.groupId }}"
+
+      - name: ‼️Remove PackageVersion
+        uses: 3nauk/bbcron-action-remove-packages@v0.0.4
+        with:
+          owner: ${{secrets.bnauk_user}}
+          token: ${{secrets.bnauk_token}}
+          organization: '3nauk'
+          #packageName: ${{ steps.maven-info.outputs.groupId }}.${{ steps.maven-info.outputs.artifactId }}
+          packageName: 'com.bnauk.bbcron.bbcron-user-api'
+          packageVersion: ${{ steps.maven-info.outputs.version }}
