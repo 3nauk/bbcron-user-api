@@ -3,7 +3,7 @@ name: 🔥 Build Master
 on:
   push:
     branches: [ main ]
-    pull_request:
+  pull_request:
 jobs:
   build-with-jdk-11:
     name: 🔥 build
@@ -28,29 +28,6 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-      - name: Generate Jacoco Badge
-        id: jacoco
-        uses: cicirello/jacoco-badge-generator@v1.0.0
-
-      - name: Upload Jacoco coverage report
-        uses: actions/upload-artifact@v2
-        with:
-          name: jacoco-report
-          path: target/site/jacoco/test/testCoverage.xml
-      - name: Report to PR
-        id: jacoco
-        uses: madrapps/jacoco-report@v1.1
-        with:
-          path: target/site/jacoco/test/testCoverage.xml
-          token: ${{secrets.bnauk_token}}
-          min-coverage-overall: 80
-          min-coverage-changed-files: 80
-          debug-mode: false
-      - name: Log coverage percentage
-        run: |
-          echo "Total coverage: ${{ steps.jacoco.outputs.coverage-overall }}"
-          echo "Total coverage Overall: ${{ steps.jacoco.outputs.coverage-overall }}"
-          echo "Changed Files coverage: ${{ steps.jacoco.outputs.coverage-changed-files }}"
       - name: Cache artifact Build
         uses: actions/cache@v2
         id: restore-build
