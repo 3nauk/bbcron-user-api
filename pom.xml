@@ -5,7 +5,7 @@
 	<groupId>com.bnauk.bbcron</groupId>
 	<artifactId>bbcron-user-api</artifactId>
 	<packaging>jar</packaging>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1${changelist}</version>
 	<name>bbcron-user-api</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -57,7 +57,7 @@
 	</dependencies>
 	<build>
 		<plugins>
-			<!-- direct usage: https://github.com/jeluard/maven-plantuml-plugin mvn 
+			<!-- direct usage: https://github.com/jeluard/maven-plantuml-plugin mvn
 				clean com.github.jeluard:plantuml-maven-plugin:generate -DGRAPHVIZ_DOT=PATH_DOT_BIN\dot.exe -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

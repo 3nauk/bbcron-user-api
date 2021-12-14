@@ -7,7 +7,7 @@ on:
 jobs:
   build-with-jdk-11:
     name: 🔥 build
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     env:
       PRODUCT_NAME: bbcron-user-api
     steps:
